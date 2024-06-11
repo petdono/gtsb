@@ -1,4 +1,4 @@
-![image](https://github.com/petdono/gtsb/banner)
+![image](https://github.com/petdono/gtsb/assets/89791014/6335b731-2c20-470a-9921-4a4f35a491e2)
 # GTSB
 GTSB, made from scratch in HTML, JS, & CSS, was made in under 2 hours. This project will only be worked on if it gains traction or I decide to update it, but feel free to fork it and make it your own.
 # Download
