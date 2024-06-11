@@ -1,0 +1,9 @@
+{
+  "name": "Gorilla Tag SoundBoard",
+  "short_name": "GTSB",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/sb.html"
+}

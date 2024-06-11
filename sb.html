@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="manifest" href="manifest.json" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>GTSB - Board 1</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        .soundboard {
+            display: grid;
+            grid-template-rows: repeat(2, 1fr);
+            grid-template-columns: repeat(5, 1fr);
+            width: 100%;
+            height: 100%;
+            gap: 5px;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .sound-button, .stop-button, .cycle-button1, .cycle-button2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 64px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .sound-button:hover, .stop-button:hover, .cycle-button1:hover, .cycle-button2:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .stop-button {
+            background-color: rgba(255, 0, 0, 0.5);
+        }
+
+        .stop-button:hover {
+            background-color: rgba(204, 0, 0, 0.7);
+        }
+
+        .cycle-button1 {
+            background: linear-gradient(45deg, #7f00ff, #e100ff); 
+            background-size: 200% 200%;
+        }
+
+        .cycle-button2 {
+            background: linear-gradient(45deg, #0052d4, #4364f7, #6fb1fc);
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient-pan {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .cycle-button2:hover {
+            background: #0052D4;
+            background-size: 200% 200%;
+            background-position: 50% 50%;
+            animation: gradient-pan 10s linear infinite;
+            transition: 0.5s ease-in-out
+        }
+
+        .cycle-button1:hover {
+            background: #a044ff;
+            background-size: 200% 200%;
+            background-position: 50% 50%;
+            animation: gradient-pan 10s linear infinite;
+            transition: 0.5s ease-in-out
+        }
+    </style>
+</head>
+<body> <!-- Buttons start here | LAYOUT: onclick="playSound('sound-name.mp3')">Name | MOVE YOUR SOUND INTO ROOT DIRECTORY -->
+    <div class="soundboard" id="board1"> <!-- Board 1 -->
+        <button class="sound-button" onclick="playSound('vine-boom.mp3')">Vine Boom</button>
+        <button class="sound-button" onclick="playSound('phone-linging.mp3')">Phone Linging</button>
+        <button class="sound-button" onclick="playSound('bye-bye.mp3')">Bye Bye</button>
+        <button class="sound-button" onclick="playSound('enemy-spotted.mp3')">Enemy Spotted</button>
+        <button class="sound-button" onclick="playSound('legos.mp3')">Lego breaking</button>
+        <button class="sound-button" onclick="playSound('elevator.mp3')">Elevator Music</button>
+        <button class="sound-button" onclick="playSound('oppenheimer.mp3')">Oppenheimer</button>
+        <button class="sound-button" onclick="playSound('sunshine.mp3')">Sunshine</button>
+        <button class="stop-button" onclick="stopAllSounds()">Stop All Sounds</button> <!-- DON'T EDIT -->
+        <button class="cycle-button2" onclick="cycleBoards()">Board 2</button> <!-- ONLY CHANGE "Board 2" -->
+    </div> <!-- End of board 1 -->
+
+    <div class="soundboard" id="board2" style="display: none;"> <!-- Board 2 -->
+        <button class="sound-button" onclick="playSound('mario-jump.mp3')">Mario Jump</button>
+        <button class="sound-button" onclick="playSound('stroke-my-pickle.mp3')">I Stroke My Pickle</button>
+        <button class="sound-button" onclick="playSound('gonna-cuh.mp3')">I'm Gonna Cuhhh</button>
+        <button class="sound-button" onclick="playSound('bluetooth-pair.mp3')">Bluetooth Pair</button>
+        <button class="sound-button" onclick="playSound('rizz.mp3')">Getting Rizzed</button>
+        <button class="sound-button" onclick="playSound('slow-sigma.mp3')">Slow Sigma</button>
+        <button class="sound-button" onclick="playSound('sad.mp3')">Sad Violin</button>
+        <button class="sound-button" onclick="playSound('paris.mp3')">Paris</button>
+        <button class="stop-button" onclick="stopAllSounds()">Stop All Sounds</button> <!-- DON'T EDIT -->
+        <button class="cycle-button1" onclick="cycleBoards()">Board 1</button> <!-- ONLY CHANGE "Board 1" -->
+    </div> <!-- End of board 2 -->
+
+    <script>
+        let currentAudio = null;
+        let currentBoard = 1;
+
+        function playSound(soundFile) {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            currentAudio = new Audio(soundFile);
+            currentAudio.play();
+        }
+
+        function stopAllSounds() {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null;
+            }
+        }
+
+        function cycleBoards() {
+            document.getElementById(`board${currentBoard}`).style.display = 'none';
+            currentBoard = currentBoard === 1 ? 2 : 1;
+            document.getElementById(`board${currentBoard}`).style.display = 'grid';
+            document.body.style.backgroundImage = currentBoard === 1 ? "url('bg1.jpg')" : "url('bg2.jpg')";
+            document.title = `GTSB - Board ${currentBoard}`;
+            stopAllSounds();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.backgroundImage = "url('bg1.jpg')";
+        });
+    </script>
+</body>
+</html>
